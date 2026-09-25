@@ -1,0 +1,27 @@
+/* 공통 오퍼(가격) 카드 · 체크 리스트 — AI TEAM · AI BRANDING 공용 (2026-09-25) */
+.l-check { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 10px; font-size: 14px; }
+.l-check li { display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
+.l-check li::before { content: ''; flex: none; width: 16px; height: 16px; margin-top: 2px; border-radius: 4px; background: var(--brown) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5 10 17.5 19.5 7' fill='none' stroke='%23fff59d' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px no-repeat; }
+
+/* 오퍼 카드 */
+.l-offer { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+.l-offer-media .d-frame { min-height: 0; aspect-ratio: 4 / 5; background: #4a3a2a; border-color: var(--line-dark); color: var(--on-dark); }
+.l-offer-card { display: flex; flex-direction: column; gap: 16px; }
+.l-offer-card h2 { margin: 0; font: 800 clamp(30px, 3vw, 40px)/1.15 var(--font-en); letter-spacing: -0.04em; color: var(--yellow); }
+.l-price { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-family: var(--font-en); }
+.l-price del { color: var(--on-dark); font-size: 18px; }
+.l-price strong { font-size: 36px; letter-spacing: -0.03em; }
+.l-offer-card > p { margin: 0; color: var(--on-dark); }
+.l-offer-card h3 { margin: 8px 0 0; font-size: 15px; }
+.l-offer-card .l-check li::before { background-color: var(--yellow); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5 10 17.5 19.5 7' fill='none' stroke='%23332516' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.l-exclude { border: var(--border-dark); border-radius: var(--r-md); padding: 16px 18px; font-size: 13px; line-height: 1.7; color: var(--on-dark); }
+.l-exclude b { display: block; color: var(--cream); margin-bottom: 4px; }
+
+.l-offer-actions { display: grid; gap: 10px; }
+.l-offer-sub { font-size: 13px; color: var(--on-dark); }
+.l-offer-sub a { color: var(--yellow); border-bottom: 1px solid currentColor; }
+
+@media (max-width: 950px) {
+  .l-offer { grid-template-columns: 1fr; gap: 30px; }
+  .l-offer-media .d-frame { aspect-ratio: 16 / 10; }
+}

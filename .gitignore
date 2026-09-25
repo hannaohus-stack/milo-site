@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# 작업용 와이어프레임 (배포 제외)
+ai-visual/
+*wireframe*.html
+
+# 로컬 작업 지침 (사이트에 올리지 않음)
+CLAUDE.md

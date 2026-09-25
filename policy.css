@@ -1,0 +1,16 @@
+/* MILO 정책 팝업 (이용약관 · 개인정보처리방침 · 환불 규정) — 전 페이지 공용 */
+.p-modal { width: min(560px, calc(100% - 32px)); max-height: min(78vh, 720px); padding: 0; border: 1px solid var(--line-dark, #43311f33); border-radius: 18px; background: var(--white, #fff); color: var(--brown, #43311f); box-shadow: 0 24px 60px rgba(51, 37, 22, .22); overflow: hidden; }
+.p-modal[open] { display: flex; flex-direction: column; }
+.p-modal::backdrop { background: rgba(51, 37, 22, .45); }
+.p-modal-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 22px; border-bottom: 1px solid var(--line, #43311f1a); background: var(--yellow-soft, #fffbe0); }
+.p-modal-head h2 { margin: 0; font-size: 17px; font-weight: 800; letter-spacing: -.01em; }
+.p-modal-close { flex: none; width: 34px; height: 34px; border: 0; border-radius: 50%; background: transparent; color: inherit; font-size: 22px; line-height: 1; cursor: pointer; }
+.p-modal-close:hover, .p-modal-close:focus-visible { background: var(--white, #fff); }
+.p-modal-body { padding: 18px 22px 24px; overflow-y: auto; font-size: 14px; line-height: 1.7; }
+.p-modal-body h3 { margin: 18px 0 6px; font-size: 14px; font-weight: 800; }
+.p-modal-body h3:first-child { margin-top: 0; }
+.p-modal-body p, .p-modal-body ul { margin: 0 0 8px; }
+.p-modal-body ul { padding-left: 18px; }
+.p-modal-body .p-date { margin-top: 18px; font-size: 12px; opacity: .7; }
+body.p-lock { overflow: hidden; }
+.is-disabled { opacity: .4; pointer-events: none; cursor: default; }

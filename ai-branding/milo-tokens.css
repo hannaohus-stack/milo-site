@@ -1,0 +1,329 @@
+/* ==========================================================================
+   MILO Design Tokens + Components  v1.0 (2026-09-24)
+   Source: milo-main-shortform-preview (index / ai-marketing-team) 원본 CSS에서 추출·통일
+
+   사용법
+   1) <head>에 폰트 + 이 파일 연결
+      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="milo-tokens.css">
+   2) 아이콘은 milo-icons.svg 안의 <symbol>을 HTML에 붙여넣고 <svg class="m-icon"><use href="#i-star"/></svg>
+   3) 페이지 전용 스타일은 별도 파일에 작성하고, 색·둥글기·그림자는 반드시 아래 토큰만 사용
+
+   규칙 요약
+   - 색은 브라운 × 옐로 두 가지가 주인공. 나머지는 배경·선·보조 텍스트용.
+   - 선은 1px 브라운 하나. 그림자는 흐림 없는 하드 섀도만 (모달 제외).
+   - 둥글기는 10 / 12 / 14 / 999 네 단계만.
+   - 스티커는 살짝 기울여 붙인다 (6° 또는 -12°). ✳ 별이 브랜드 마크.
+   - 반응형 기준: 950px(태블릿), 700px(모바일)
+   ========================================================================== */
+
+:root {
+  /* ---------- Color: core ---------- */
+  --brown: #43311f;        /* 기본 텍스트 · 선 · 어두운 배경 */
+  --brown-deep: #332516;   /* 가장 어두운 배경 · 스티커 섀도 */
+  --brown-soft: #6c5843;   /* 보조 텍스트 */
+  --yellow: #fff59d;       /* 포인트 · CTA · 밝은 배경 */
+  --yellow-soft: #fffbc9;  /* 연한 섹션 배경 · 강조 박스 */
+  --cream: #fffdf0;        /* 기본 페이지 배경 */
+  --white: #fffef7;        /* 카드 배경 */
+
+  /* ---------- Color: lines & on-dark ---------- */
+  --line: #d9ccaf;         /* 밝은 배경 위 연한 구분선 */
+  --line-dark: #82725d;    /* 어두운 배경 위 구분선 */
+  --on-dark: #d7c8ae;      /* 어두운 배경 위 보조 텍스트 */
+
+  /* ---------- Color: optional ---------- */
+  --accent: #ee6b3b;       /* 선택 사용. 경고·할인 뱃지 등 한 페이지 1회 이하 */
+
+  /* ---------- Typography ---------- */
+  --font-ko: 'Noto Sans KR', sans-serif;
+  --font-en: 'DM Sans', 'Noto Sans KR', sans-serif;   /* 영문 · 숫자 · 버튼 · 가격 */
+
+  --fs-display: clamp(48px, 5.9vw, 84px);  /* 히어로 h1 */
+  --fs-title: clamp(37px, 4.2vw, 61px);    /* 섹션 h2 */
+  --fs-sub: 22px;                          /* 카드 h3 */
+  --fs-body: 17px;
+  --fs-small: 14px;
+  --fs-micro: 12px;                        /* 버튼 · 태그 */
+
+  --track-display: -0.075em;
+  --track-title: -0.065em;
+  --track-sub: -0.05em;
+  --track-caps: 0.15em;                    /* 대문자 태그 */
+
+  --lh-display: 1.22;
+  --lh-title: 1.3;
+  --lh-body: 1.8;
+
+  /* ---------- Shape ---------- */
+  --r-sm: 10px;    /* 사각 스티커 · 작은 박스 */
+  --r-md: 12px;    /* 카드 (기본) */
+  --r-lg: 14px;    /* 큰 프레임 · 가격 카드 */
+  --r-pill: 999px; /* 버튼 · 태그 · 타원 스티커 */
+
+  --border: 1px solid var(--brown);
+  --border-soft: 1px solid var(--line);
+  --border-dark: 1px solid var(--line-dark);
+
+  /* ---------- Hard shadow (색은 뒤에 붙여 사용: box-shadow: var(--shadow-lg) var(--yellow)) ---------- */
+  --shadow-sm: 5px 5px 0;   /* 스티커 · 작은 카드 */
+  --shadow-lg: 10px 10px 0; /* 가격 카드 · 강조 프레임 (모바일에서 6px로 자동 축소) */
+  --shadow-drop: 0 4px 0;   /* 타원 스티커 바닥 그림자 */
+  --shadow-float: 0 24px 80px rgba(0, 0, 0, .27); /* 모달 전용 */
+
+  /* ---------- Sticker tilt ---------- */
+  --tilt: 6deg;
+  --tilt-strong: -12deg;
+
+  /* ---------- Layout ---------- */
+  --container: 1280px;
+  --gutter: 34px;
+  --section-y: 110px;
+  --gap: 14px;
+  --gap-lg: 30px;
+
+  /* ---------- Motion ---------- */
+  --ease: .2s ease;
+  --lift: translateY(-3px);
+}
+
+@media (max-width: 700px) {
+  :root {
+    --gutter: 21px;
+    --section-y: 78px;
+    --fs-body: 15px;
+    --fs-sub: 20px;
+    --shadow-lg: 6px 6px 0;
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--brown);
+  font-family: var(--font-ko);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  word-break: keep-all;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+img, svg { display: block; max-width: 100%; }
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+.m-container { max-width: var(--container); margin: 0 auto; padding-inline: var(--gutter); }
+
+.m-section { padding-block: var(--section-y); }
+.m-section.is-yellow { background: var(--yellow); }
+.m-section.is-soft   { background: var(--yellow-soft); }
+.m-section.is-cream  { background: var(--cream); }
+.m-section.is-dark   { background: var(--brown); color: var(--cream); }
+.m-section.is-deep   { background: var(--brown-deep); color: var(--cream); }
+/* 권장 리듬: yellow → cream → dark → yellow → cream → soft → cream → dark(footer)
+   밝은 섹션 2~3개마다 어두운 섹션 1개 */
+
+/* 히어로 "프레임 속 프레임": 옐로 섹션 안에 브라운 카드가 떠 있는 구조 */
+.m-frame-wrap { background: var(--yellow); padding: 0 18px 18px; }
+.m-frame {
+  background: var(--brown);
+  color: var(--cream);
+  border: 1px solid var(--brown-deep);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+.m-head { display: flex; align-items: end; justify-content: space-between; gap: 25px; margin-bottom: 50px; }
+.m-head > p { margin: 0; max-width: 360px; font-size: 15px; color: var(--brown-soft); }
+.is-dark .m-head > p, .is-deep .m-head > p { color: var(--on-dark); }
+@media (max-width: 700px) { .m-head { display: block; margin-bottom: 32px; } .m-head > p { margin-top: 16px; } }
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+.m-display {
+  margin: 0;
+  font-size: var(--fs-display);
+  font-weight: 800;
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+}
+.m-title {
+  margin: 0;
+  font-size: var(--fs-title);
+  font-weight: 800;
+  line-height: var(--lh-title);
+  letter-spacing: var(--track-title);
+}
+.m-sub { margin: 0; font-size: var(--fs-sub); font-weight: 700; letter-spacing: var(--track-sub); }
+.m-display em, .m-title em { font-style: normal; color: var(--yellow); }             /* 어두운 배경 위 강조 */
+.m-mark { background: var(--yellow); color: var(--brown); padding: 0 .12em; }       /* 밝은 배경 위 형광펜 강조 */
+.is-yellow .m-mark { background: var(--brown); color: var(--yellow); }                 /* 옐로 배경 위에서는 반전 */
+.m-en { font-family: var(--font-en); letter-spacing: -0.02em; }                     /* MAKE / SHOW / GROW, 가격 */
+.m-muted { color: var(--brown-soft); }
+.m-note { font-size: 12px; color: var(--brown-soft); }                               /* 면책·샘플 안내 */
+
+/* ==========================================================================
+   Buttons & links
+   ========================================================================== */
+.m-btn {
+  display: inline-flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 14px 20px;
+  border: var(--border); border-radius: var(--r-pill);
+  background: var(--brown); color: var(--cream);
+  font: 800 13px/1.2 var(--font-en);
+  white-space: nowrap;
+  transition: transform var(--ease), background var(--ease);
+}
+.m-btn:hover { transform: var(--lift); }
+.m-btn .m-icon { width: 16px; height: 16px; }
+.m-btn.is-yellow { background: var(--yellow); color: var(--brown); border-color: var(--yellow); }
+.m-btn.is-line   { background: transparent; color: inherit; border-color: currentColor; }
+.m-btn.is-full   { width: 100%; }
+
+.m-link { font-size: var(--fs-small); font-weight: 700; border-bottom: 1px solid currentColor; padding-bottom: 5px; }
+
+/* ==========================================================================
+   Cards
+   ========================================================================== */
+.m-card {
+  background: var(--white);
+  border: var(--border);
+  border-radius: var(--r-md);
+  padding: 26px;
+}
+.m-card.is-dark   { background: var(--brown); color: var(--cream); border-color: var(--brown); }
+.m-card.is-yellow { background: var(--yellow); border-color: var(--yellow); }
+.m-card.is-soft   { background: var(--yellow-soft); }
+.m-card.is-lg     { border-radius: var(--r-lg); }
+.m-card.has-shadow        { box-shadow: var(--shadow-lg) var(--yellow); }  /* 밝은 배경 위 */
+.m-card.has-shadow-cream  { box-shadow: var(--shadow-lg) var(--cream); }   /* 옐로 배경 위 */
+.m-card.has-shadow-sm     { box-shadow: var(--shadow-sm) var(--yellow); }
+
+/* 미디어 자리 (이미지·영상 들어가기 전) */
+.m-slot {
+  display: grid; place-items: center; text-align: center;
+  min-height: 240px;
+  border: 1px dashed var(--line-dark); border-radius: var(--r-sm);
+  background: var(--yellow-soft); color: var(--brown-soft);
+}
+.m-slot.is-portrait { aspect-ratio: 9 / 16; min-height: 0; }
+
+/* ==========================================================================
+   Stickers & tags
+   ========================================================================== */
+/* 알약 태그: 평평, 회전 없음. 카드 모서리 라벨·뱃지 */
+.m-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px;
+  border-radius: var(--r-pill);
+  background: var(--yellow); color: var(--brown);
+  font: 800 10px/1 var(--font-en);
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.m-tag.is-dark { background: var(--brown); color: var(--yellow); }
+.m-tag.is-line { background: transparent; border: var(--border); }
+
+/* 타원 스티커: 기울임 + 바닥 그림자. 히어로·캐릭터 옆에 한 개만 */
+.m-sticker {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 17px;
+  border-radius: var(--r-pill);
+  background: var(--yellow); color: var(--brown);
+  font: 800 12px/1 var(--font-en);
+  letter-spacing: .04em; text-transform: uppercase;
+  transform: rotate(var(--tilt));
+  box-shadow: var(--shadow-drop) var(--brown-deep);
+}
+
+/* 원형 스티커: 두 줄 대문자. 박스 옆·섹션 모서리 포인트 */
+.m-sticker-circle {
+  display: grid; place-items: center; text-align: center;
+  width: 76px; height: 76px; flex: none;
+  border-radius: 50%;
+  background: var(--brown); color: var(--yellow);
+  font: 800 12px/1.25 var(--font-en);
+  text-transform: uppercase;
+  transform: rotate(var(--tilt-strong));
+}
+.m-sticker-circle.is-yellow { background: var(--yellow); color: var(--brown); }
+
+/* 사각 스티커: 3줄 이내 대문자 + 짙은 하드 섀도 */
+.m-sticker-square {
+  display: inline-block;
+  padding: 15px 18px;
+  border-radius: var(--r-sm);
+  background: var(--yellow); color: var(--brown);
+  font: 800 11px/1.3 var(--font-en);
+  letter-spacing: .08em; text-transform: uppercase;
+  transform: rotate(var(--tilt));
+  box-shadow: var(--shadow-sm) var(--brown-deep);
+}
+
+@media (max-width: 700px) {
+  .m-sticker { padding: 9px 12px; font-size: 10px; }
+  .m-sticker-circle { width: 64px; height: 64px; font-size: 10px; }
+  .m-sticker-square { padding: 10px; font-size: 9px; }
+}
+
+/* ==========================================================================
+   Icons (milo-icons.svg 심볼 사용)
+   ========================================================================== */
+.m-icon { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.m-icon.is-fill { fill: currentColor; stroke: none; }
+
+/* 원형 아이콘 버튼: 라인형 / 채움형 */
+.m-ring {
+  display: inline-grid; place-items: center; flex: none;
+  width: 48px; height: 48px;
+  border: 1px solid currentColor; border-radius: 50%;
+}
+.m-ring .m-icon { width: 40%; height: 40%; }
+.m-ring.is-fill   { background: var(--brown); color: var(--yellow); border-color: var(--brown); }
+.m-ring.is-yellow { background: var(--yellow); color: var(--brown); border-color: var(--yellow); }
+.m-ring.is-sm { width: 30px; height: 30px; }
+.m-ring.is-lg { width: 56px; height: 56px; }
+
+/* ✳ 별 불릿 리스트 */
+.m-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.m-list li { display: flex; align-items: center; gap: 12px; }
+.m-list li > .m-icon { width: 12px; height: 12px; }
+
+/* ==========================================================================
+   FAQ (details / summary)
+   ========================================================================== */
+.m-faq details { border-bottom: var(--border-soft); }
+.m-faq details:first-child { border-top: var(--border); }
+.m-faq summary {
+  display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  padding: 22px 0; list-style: none; cursor: pointer;
+  font-weight: 700; font-size: 16px;
+}
+.m-faq summary::-webkit-details-marker { display: none; }
+.m-faq summary::after { content: '+'; font: 400 24px/1 var(--font-en); }
+.m-faq details[open] summary::after { content: '−'; }
+.m-faq details p { margin: 0 0 22px; font-size: 15px; color: var(--brown-soft); }
+
+/* ==========================================================================
+   Modal
+   ========================================================================== */
+.m-modal { position: fixed; inset: 0; z-index: 50; display: none; place-items: center; padding: 20px; background: rgba(33, 25, 15, .75); }
+.m-modal.open { display: grid; }
+.m-dialog { width: min(100%, 460px); background: var(--cream); border: var(--border); border-radius: var(--r-lg); padding: 28px; box-shadow: var(--shadow-float); }
+
+/* ==========================================================================
+   Accessibility
+   ========================================================================== */
+:focus-visible { outline: 2px solid var(--brown); outline-offset: 3px; }
+.is-dark :focus-visible, .m-frame :focus-visible { outline-color: var(--yellow); }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .m-btn { transition: none; }
+}

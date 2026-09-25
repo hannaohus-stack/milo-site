@@ -1,0 +1,99 @@
+/* MILO Contact (contact.css) — 접두사 c- · 토큰은 milo-tokens.css, 헤더·푸터는 home.css */
+
+.c-hero { padding: 76px 0 46px; text-align: center; }
+.c-hero .m-tag .m-icon { width: 11px; height: 11px; }
+.c-title { margin: 20px 0 0; font-size: clamp(34px, 4vw, 54px); }
+.c-lead { margin: 20px auto 0; max-width: 620px; font-size: 16px; line-height: 1.75; color: var(--brown-soft); }
+
+.c-grid { display: grid; grid-template-columns: 340px 1fr; gap: 28px; align-items: start; max-width: 1080px; }
+
+/* ---------- 안내 ---------- */
+.c-aside { display: grid; gap: 18px; position: sticky; top: 96px; }
+.c-info { position: relative; padding: 28px; background: var(--brown); color: var(--cream); border-radius: var(--r-lg); }
+.c-info h2 { margin: 0 0 16px; font-size: 20px; font-weight: 800; }
+.c-info dl { margin: 0; display: grid; gap: 14px; }
+.c-info dt { font: 800 10px var(--font-en); letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--yellow); }
+.c-info dd { margin: 4px 0 0; font-size: 14px; color: var(--on-dark); }
+.c-info dd a { color: var(--cream); font-weight: 700; border-bottom: 1px solid currentColor; }
+.c-info-badge { position: absolute; right: -14px; top: -18px; background: var(--yellow); color: var(--brown); }
+
+.c-faq { padding: 22px 24px 8px; background: var(--white); border: var(--border); border-radius: var(--r-lg); }
+.c-faq h3 { margin: 0 0 8px; font-size: 15px; font-weight: 800; }
+.c-faq details { border-top: var(--border-soft); }
+.c-faq summary { list-style: none; display: flex; justify-content: space-between; gap: 10px; padding: 13px 0; font-size: 14px; font-weight: 700; cursor: pointer; }
+.c-faq summary::-webkit-details-marker { display: none; }
+.c-faq summary::after { content: '+'; font: 400 20px/1 var(--font-en); }
+.c-faq details[open] summary::after { content: '−'; }
+.c-faq details p { margin: 0 0 14px; font-size: 13px; line-height: 1.7; color: var(--brown-soft); }
+
+/* ---------- 폼 ---------- */
+.c-form, .c-done { padding: 36px; background: var(--white); border: var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-lg) var(--yellow); }
+.c-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+.c-step { margin: 0 0 30px; padding: 0 0 28px; border: 0; border-bottom: 1px dashed var(--line); }
+.c-step legend { display: flex; align-items: center; gap: 10px; padding: 0; margin-bottom: 16px; font-size: 18px; font-weight: 800; }
+.c-step legend .no { display: inline-grid; place-items: center; min-width: 34px; height: 28px; padding: 0 8px; background: var(--brown); color: var(--yellow); font: 800 12px var(--font-en); border-radius: 4px; }
+.c-form em { font-style: normal; color: var(--accent); }
+
+.c-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.c-field { display: grid; gap: 7px; margin-top: 14px; }
+.c-label { font-size: 13px; font-weight: 800; }
+.c-label small { margin-left: 6px; font-weight: 500; color: var(--brown-soft); }
+
+.c-form input[type="text"], .c-form input[type="email"], .c-form input[type="tel"], .c-form select, .c-form textarea {
+  width: 100%; padding: 13px 14px;
+  font: 500 15px/1.5 var(--font-ko); color: var(--brown);
+  background: var(--cream); border: var(--border); border-radius: var(--r-md);
+  transition: box-shadow var(--ease), background var(--ease);
+}
+.c-form textarea { resize: vertical; min-height: 140px; }
+.c-form select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--brown) 50%), linear-gradient(135deg, var(--brown) 50%, transparent 50%); background-position: calc(100% - 20px) 55%, calc(100% - 14px) 55%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 40px; }
+.c-form ::placeholder { color: #a8987f; }
+.c-form input:focus, .c-form select:focus, .c-form textarea:focus { outline: none; background: var(--white); box-shadow: var(--shadow-sm) var(--yellow); }
+.c-form .is-invalid { border-color: var(--accent) !important; background: #fff6ef !important; }
+.c-count { justify-self: end; font: 700 11px var(--font-en); color: var(--brown-soft); }
+
+/* 칩(라디오·체크박스) */
+.c-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.c-chips label { position: relative; cursor: pointer; }
+.c-chips input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.c-chips span { display: inline-flex; align-items: center; padding: 11px 16px; border: var(--border); border-radius: var(--r-pill); background: var(--cream); font-size: 14px; font-weight: 700; transition: background var(--ease), color var(--ease); }
+.c-chips.is-sm span { padding: 8px 13px; font-size: 13px; }
+.c-chips input:checked + span { background: var(--brown); color: var(--yellow); }
+.c-chips input:focus-visible + span { outline: 2px solid var(--brown); outline-offset: 2px; }
+.c-chips label:hover span { background: var(--yellow-soft); }
+.c-chips input:checked:hover + span, .c-chips label:hover input:checked + span { background: var(--brown); }
+.c-chips.is-invalid span { border-color: var(--accent); }
+
+.c-hint { margin: 14px 0 0; padding: 10px 14px; background: var(--yellow-soft); border-radius: var(--r-md); font-size: 13px; }
+[data-show-for][hidden], [data-show-for-reply][hidden] { display: none !important; }
+
+/* 동의 */
+.c-consent { display: grid; gap: 10px; margin-bottom: 22px; }
+.c-check { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; cursor: pointer; }
+.c-check input { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--brown); flex: none; }
+.c-consent details { margin-left: 28px; }
+.c-consent summary { font-size: 12px; font-weight: 700; color: var(--brown-soft); cursor: pointer; }
+.c-consent details p { margin: 8px 0 0; padding: 12px 14px; background: var(--cream); border: var(--border-soft); border-radius: var(--r-sm); font-size: 12px; line-height: 1.75; color: var(--brown-soft); }
+
+.c-error { margin: 0 0 14px; padding: 12px 14px; border-left: 4px solid var(--accent); background: #fff6ef; font-size: 13px; font-weight: 700; }
+.c-submit { justify-content: center; gap: 12px; padding: 17px 20px; font-size: 14px; }
+.c-submit[disabled] { opacity: .6; cursor: wait; }
+
+/* 완료 */
+.c-done { display: grid; justify-items: center; gap: 14px; padding: 60px 36px; text-align: center; }
+.c-done[hidden] { display: none; }
+.c-done h2 { margin: 6px 0 0; font-size: 26px; font-weight: 800; }
+.c-done p { margin: 0 0 8px; color: var(--brown-soft); font-size: 15px; }
+
+@media (max-width: 950px) {
+  .c-grid { grid-template-columns: 1fr; }
+  .c-aside { position: static; order: 2; }
+}
+@media (max-width: 700px) {
+  .c-hero { padding: 52px 0 32px; }
+  .c-lead br { display: none; }
+  .c-form, .c-done { padding: 24px 20px; box-shadow: var(--shadow-sm) var(--yellow); }
+  .c-row { grid-template-columns: 1fr; gap: 0; }
+  .c-info-badge { right: -6px; }
+}
