@@ -1,5 +1,5 @@
 // MILO 문의폼 — 조건부 항목 · 검증 · 제출
-// DB 연결: form[data-endpoint]에 저장 API 주소를 넣으면 JSON(POST)으로 전송합니다. 비어 있으면 전송 없이 완료 화면만 보여줍니다.
+// 저장: form[data-endpoint](/api/contact)로 JSON(POST) 전송 → api/contact.js가 Supabase에 저장합니다.
 (() => {
   const form = document.getElementById('contact-form');
   const done = document.getElementById('contact-done');
@@ -69,7 +69,6 @@
     data.products = new FormData(form).getAll('products');
     data.agree_privacy = f.agree_privacy.checked;
     data.agree_marketing = f.agree_marketing.checked;
-    data.submitted_at = new Date().toISOString();
     data.page = location.pathname;
     delete data.website;
 
@@ -78,6 +77,7 @@
       const endpoint = form.dataset.endpoint;
       if (endpoint) {
         const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        if (res.status === 429) throw new Error('rate');
         if (!res.ok) throw new Error(res.status);
       } else {
         console.info('[MILO contact] DB 미연결 — 전송하지 않은 데이터:', data);
@@ -85,7 +85,7 @@
       form.hidden = true; done.hidden = false; done.focus();
       window.scrollTo({ top: done.getBoundingClientRect().top + window.scrollY - 110, behavior: 'smooth' });
     } catch (err) {
-      errorBox.textContent = '보내지 못했어요. 잠시 후 다시 시도하거나 인스타그램 DM으로 문의해 주세요.'; errorBox.hidden = false;
+      errorBox.textContent = err.message === 'rate' ? '짧은 시간에 문의가 여러 번 접수됐어요. 10분 뒤에 다시 보내주세요.' : '보내지 못했어요. 잠시 후 다시 시도하거나 인스타그램 DM으로 문의해 주세요.'; errorBox.hidden = false;
     } finally { btn.disabled = false; }
   });
 })();
