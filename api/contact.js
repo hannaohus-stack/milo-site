@@ -65,15 +65,19 @@ async function tooMany(ipHash) {
   return total >= RATE_LIMIT.max;
 }
 
-// Slack에는 연락처(이메일·휴대폰)를 보내지 않음 — 확인은 Supabase에서
+// Slack 알림 — 연락처는 고른 답변 방법의 것 하나만 보냄
+const slackEsc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const replyTo = (d) => ({ email: d.email, phone: d.phone, dm: d.insta && `@${d.insta.replace(/^@/, '')}` }[d.reply_via]);
+
 async function notifySlack(d) {
   const url = process.env.SLACK_WEBHOOK_URL;
   if (!url) return;
-  const who = [d.name, d.brand].filter(Boolean).join(' · ');
-  const excerpt = d.message.length > 200 ? `${d.message.slice(0, 200)}…` : d.message;
+  const who = slackEsc([d.name, d.brand].filter(Boolean).join(' · '));
+  const excerpt = slackEsc(d.message.length > 200 ? `${d.message.slice(0, 200)}…` : d.message);
   const text = [
     `*새 문의* — ${TYPE_LABEL[d.type]}`,
     `${who} / ${d.industry} / 답변: ${REPLY_VIA[d.reply_via]}`,
+    `연락처: ${slackEsc(replyTo(d) || '-')}`,
     d.products.length ? `제품: ${d.products.join(', ')}` : '',
     `> ${excerpt.replace(/\n/g, '\n> ')}`,
     `<https://supabase.com/dashboard/project/vftsleppwizrkgcvbsmn/editor|Supabase에서 보기>`,
