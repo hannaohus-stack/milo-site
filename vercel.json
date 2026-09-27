@@ -11,22 +11,22 @@
       "permanent": false
     },
     {
-      "source": "/ai-team/:path*",
+      "source": "/ai-team(/.*)?",
       "destination": "/coming-soon/",
       "permanent": false
     },
     {
-      "source": "/ai-branding/:path*",
+      "source": "/ai-branding(/.*)?",
       "destination": "/coming-soon/",
       "permanent": false
     },
     {
-      "source": "/ai-visual/:path*",
+      "source": "/ai-visual(/.*)?",
       "destination": "/coming-soon/",
       "permanent": false
     },
     {
-      "source": "/service/:path*",
+      "source": "/service(/.*)?",
       "destination": "/coming-soon/",
       "permanent": false
     }
