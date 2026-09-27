@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fff59d">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="우리 브랜드의 AI 디렉터, MILO가 10월 8일에 문을 열어요.">
+  <meta property="og:title" content="MILO — Coming Soon · 10.08 OPEN">
+  <meta property="og:description" content="우리 브랜드의 AI 디렉터, MILO가 10월 8일에 문을 열어요.">
+  <title>MILO — Coming Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;0,800;1,800&family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../milo-tokens.css">
+  <link rel="stylesheet" href="../policy.css">
+  <style>
+    /* Coming Soon (정식 오픈 전 임시 페이지) — 오픈하면 vercel.json의 redirects를 지우면 됩니다 */
+    html, body { height: 100%; }
+    body { margin: 0; background: var(--yellow); color: var(--brown); overflow-x: hidden; }
+    .cs { position: relative; min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: minmax(0, 1fr); overflow: hidden; }
+    .cs > * { min-width: 0; }
+
+    /* 상단 */
+    .cs-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px clamp(16px, 4vw, 48px); }
+    .cs-logo img { display: block; width: clamp(92px, 9vw, 124px); height: auto; }
+    .cs-open { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border: var(--border); border-radius: var(--r-pill); font: 800 12px/1 var(--font-en); letter-spacing: .08em; }
+    .cs-open b { background: var(--brown); color: var(--yellow); padding: 5px 8px; border-radius: var(--r-pill); letter-spacing: .02em; }
+
+    /* 본문 */
+    .cs-main { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: clamp(16px, 4vw, 56px); padding: 8px clamp(16px, 5vw, 72px) 28px; max-width: 1280px; width: 100%; margin: 0 auto; box-sizing: border-box; }
+    .cs-copy { display: flex; flex-direction: column; gap: 20px; }
+    .cs-tag { align-self: flex-start; font: 800 12px/1 var(--font-en); letter-spacing: .18em; padding: 9px 14px; border-radius: var(--r-pill); background: var(--brown); color: var(--yellow); }
+    .cs-title { margin: 0; font: 800 clamp(52px, 8.4vw, 124px)/.92 var(--font-en); letter-spacing: -0.06em; min-height: 1.84em; }
+    .cs-title .line { display: block; }
+    .cs-caret { display: inline-block; width: .08em; height: .78em; margin-left: .06em; vertical-align: -0.02em; background: currentColor; animation: cs-blink 1s steps(1) infinite; }
+    .cs-lead { margin: 0; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.6; font-weight: 500; }
+    .cs-lead b { font-weight: 800; }
+    .cs-dday { font: 800 14px/1 var(--font-en); letter-spacing: .06em; }
+
+    /* 알림 신청 폼 */
+    .cs-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; max-width: 480px; }
+    .cs-field { display: flex; gap: 8px; padding: 6px; border: var(--border); border-radius: var(--r-pill); background: var(--white); box-shadow: var(--shadow-sm) var(--brown); }
+    .cs-field input { flex: 1; min-width: 0; border: 0; background: transparent; padding: 10px 14px; font: 500 16px/1.2 var(--font-ko); color: var(--brown); outline: none; }
+    .cs-field input::placeholder { color: var(--brown-soft); }
+    .cs-field .m-btn { gap: 10px; padding: 12px 18px; }
+    .cs-agree { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; line-height: 1.5; }
+    .cs-agree input { width: 16px; height: 16px; margin: 2px 0 0; accent-color: var(--brown); flex: none; }
+    .cs-agree a { border-bottom: 1px solid currentColor; }
+    .cs-agree-note { display: block; margin-top: 2px; font-size: 11.5px; color: var(--brown-soft); }
+    .cs-msg { min-height: 20px; margin: 0; font-size: 13px; font-weight: 700; }
+    .cs-msg.is-error { color: #a1301b; }
+    .cs-done { display: none; padding: 16px 20px; border: var(--border); border-radius: var(--r-md); background: var(--white); font-weight: 700; max-width: 480px; box-sizing: border-box; }
+    .cs-form.is-sent { display: none; }
+    .cs-form.is-sent + .cs-done { display: block; }
+    .cs-sub { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; font-size: 14px; }
+    .cs-sub a { font-weight: 800; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+    .cs-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+    /* 캐릭터 */
+    .cs-char { position: relative; display: grid; place-items: end center; justify-self: center; width: min(100%, 520px); }
+    .cs-char img { position: relative; z-index: 1; display: block; width: 100%; height: auto; max-height: 68svh; object-fit: contain; animation: cs-float 4s ease-in-out infinite; }
+    .cs-shadow { position: absolute; bottom: 1.5%; left: 50%; width: 56%; height: 22px; margin-left: -28%; border-radius: 50%; background: rgba(51, 37, 22, .22); filter: blur(6px); animation: cs-shadow 4s ease-in-out infinite; }
+    .cs-sticker { position: absolute; z-index: 2; top: 12%; right: 2%; box-shadow: var(--shadow-sm) var(--brown); background: var(--white); animation: cs-wobble 6s ease-in-out infinite; }
+    .cs-sticker-circle { position: absolute; z-index: 2; left: 4%; top: 36%; animation: cs-spin 14s linear infinite; }
+
+    /* 하단 흐르는 띠 */
+    .cs-band { overflow: hidden; background: var(--brown); color: var(--yellow); border-top: var(--border); }
+    .cs-band-track { display: flex; width: max-content; animation: cs-marquee 28s linear infinite; }
+    .cs-band span { padding: 14px 0; font: 800 15px/1 var(--font-en); letter-spacing: .12em; white-space: nowrap; }
+    .cs-band i { font-style: normal; padding: 0 22px; opacity: .6; }
+    .cs-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; padding: 12px clamp(16px, 4vw, 48px) calc(12px + env(safe-area-inset-bottom)); background: var(--brown); color: var(--on-dark); font-size: 12px; }
+    .cs-foot a { color: inherit; border-bottom: 1px solid currentColor; }
+
+    /* 등장 순서 */
+    .rise { opacity: 0; transform: translateY(18px); animation: cs-rise .7s cubic-bezier(.2, .7, .2, 1) forwards; animation-delay: calc(var(--i, 0) * 140ms + 100ms); }
+
+    @keyframes cs-rise { to { opacity: 1; transform: none; } }
+    @keyframes cs-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+    @keyframes cs-shadow { 0%, 100% { transform: scaleX(1); opacity: 1; } 50% { transform: scaleX(.82); opacity: .6; } }
+    @keyframes cs-wobble { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(3deg); } }
+    @keyframes cs-spin { to { transform: rotate(360deg); } }
+    @keyframes cs-marquee { to { transform: translateX(-50%); } }
+    @keyframes cs-blink { 50% { opacity: 0; } }
+
+    @media (max-width: 860px) {
+      .cs-main { grid-template-columns: minmax(0, 1fr); text-align: left; padding-top: 0; gap: 8px; }
+      .cs-char { order: -1; width: min(72vw, 330px); }
+      .cs-char img { max-height: 40svh; }
+      .cs-sticker { top: 4%; right: -4%; }
+      .cs-sticker-circle { left: -8%; top: 44%; width: 64px; height: 64px; font-size: 10px; }
+      .cs-title { min-height: 1.84em; }
+      .cs-open { padding: 8px 12px; font-size: 11px; }
+    }
+    @media (max-width: 420px) {
+      .cs-field { flex-direction: column; border-radius: var(--r-md); }
+      .cs-field .m-btn { justify-content: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; }
+      .rise { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="cs">
+  <header class="cs-top">
+    <span class="cs-logo rise" style="--i:0"><img src="../assets/milo-logo.png" alt="MILO" width="600" height="304"></span>
+    <span class="cs-open rise" style="--i:1">OPEN <b>10.08</b></span>
+  </header>
+
+  <main class="cs-main">
+    <div class="cs-copy">
+      <span class="cs-tag rise" style="--i:2">MAKE · SHOW · GROW</span>
+      <h1 class="cs-title rise" style="--i:3" aria-label="Coming Soon">
+        <span class="line" data-type="COMING"></span><span class="line" data-type="SOON"></span>
+      </h1>
+      <p class="cs-lead rise" style="--i:4">우리 브랜드의 AI 디렉터, <b>MILO</b>가<br><b>10월 8일</b>에 문을 열어요.</p>
+      <p class="cs-dday rise" style="--i:5" id="dday" aria-live="polite"></p>
+
+      <form class="cs-form rise" style="--i:6" id="notify-form" novalidate>
+        <div class="cs-field">
+          <label for="email" class="cs-hp">이메일</label>
+          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="이메일 주소" required>
+          <button class="m-btn" type="submit">오픈 알림 받기 <svg class="m-icon"><use href="#i-arrow-right"/></svg></button>
+        </div>
+        <label class="cs-agree"><input type="checkbox" name="agree_privacy" required><span>[필수] 오픈 알림 발송을 위한 이메일 수집·이용에 동의해요. <a href="#" data-policy="privacy">자세히</a><small class="cs-agree-note">수집 항목 이메일 · 목적 오픈 알림 발송 · 보관 발송 후 30일(미발송 시 신청 후 90일) · 동의하지 않으면 알림을 받을 수 없어요.</small></span></label>
+        <div class="cs-hp" aria-hidden="true"><label>website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <p class="cs-msg" id="notify-msg" role="status"></p>
+      </form>
+      <p class="cs-done" role="status">신청 완료! 10월 8일 오픈 소식을 이메일로 보내 드릴게요.</p>
+
+      <p class="cs-sub rise" style="--i:7">궁금한 게 있나요? <a href="../contact/">문의하기</a></p>
+    </div>
+
+    <figure class="cs-char rise" style="--i:3">
+      <span class="cs-shadow" aria-hidden="true"></span>
+      <img src="../assets/director-chair.webp" alt="디렉터 의자에 앉아 노트북을 든 MILO 카피바라 캐릭터" width="768" height="960">
+      <span class="m-sticker cs-sticker" aria-hidden="true">Direction first <svg class="m-icon"><use href="#i-star"/></svg></span>
+      <span class="m-sticker-circle cs-sticker-circle" aria-hidden="true">SOON<br>10.08</span>
+    </figure>
+  </main>
+
+  <div>
+    <div class="cs-band" aria-hidden="true">
+      <div class="cs-band-track">
+        <span>MAKE<i>✦</i>SHOW<i>✦</i>GROW<i>✦</i>COMING SOON<i>✦</i>OPEN 10.08<i>✦</i>MAKE<i>✦</i>SHOW<i>✦</i>GROW<i>✦</i>COMING SOON<i>✦</i>OPEN 10.08<i>✦</i></span>
+        <span>MAKE<i>✦</i>SHOW<i>✦</i>GROW<i>✦</i>COMING SOON<i>✦</i>OPEN 10.08<i>✦</i>MAKE<i>✦</i>SHOW<i>✦</i>GROW<i>✦</i>COMING SOON<i>✦</i>OPEN 10.08<i>✦</i></span>
+      </div>
+    </div>
+    <footer class="cs-foot">
+      <span>© CHAEUM KOREA Co., Ltd. · MILO</span>
+      <span><a href="#" data-policy="privacy">개인정보처리방침</a> · <a href="#" data-policy="terms">이용약관</a></span>
+    </footer>
+  </div>
+</div>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 타이핑: COMING → SOON
+  var lines = document.querySelectorAll('.cs-title [data-type]');
+  var caret = document.createElement('span');
+  caret.className = 'cs-caret'; caret.setAttribute('aria-hidden', 'true');
+  if (reduce) {
+    lines.forEach(function (l) { l.textContent = l.dataset.type; });
+    lines[lines.length - 1].appendChild(caret);
+  } else {
+    var li = 0, ci = 0;
+    (function tick() {
+      var line = lines[li], text = line.dataset.type;
+      line.textContent = text.slice(0, ci + 1); line.appendChild(caret);
+      ci++;
+      if (ci < text.length) return setTimeout(tick, 95);
+      if (li < lines.length - 1) { li++; ci = 0; return setTimeout(tick, 260); }
+    })();
+  }
+
+  // D-day (한국 시간 기준, 10월 8일 00:00)
+  var open = Date.UTC(2026, 9, 7, 15, 0, 0); // 2026-10-08 00:00 KST
+  var days = Math.ceil((open - Date.now()) / 864e5);
+  document.getElementById('dday').textContent = days > 0 ? 'D-' + days : 'D-DAY';
+
+  // 오픈 알림 신청
+  var form = document.getElementById('notify-form');
+  var msg = document.getElementById('notify-msg');
+  var btn = form.querySelector('button[type=submit]');
+  function say(t, err) { msg.textContent = t; msg.classList.toggle('is-error', !!err); }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = form.email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { say('이메일 주소를 확인해 주세요.', true); form.email.focus(); return; }
+    if (!form.agree_privacy.checked) { say('개인정보 수집·이용에 동의해 주세요.', true); return; }
+    btn.disabled = true; say('신청하는 중이에요…');
+    fetch('/api/notify', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, agree_privacy: true, website: form.website.value, source: location.pathname + location.search })
+    }).then(function (r) {
+      if (r.ok) { say(''); form.classList.add('is-sent'); return; }
+      if (r.status === 429) say('잠시 후 다시 시도해 주세요.', true);
+      else say('신청이 안 됐어요. 잠시 후 다시 시도하거나 문의하기를 이용해 주세요.', true);
+    }).catch(function () {
+      say('연결이 불안정해요. 잠시 후 다시 시도해 주세요.', true);
+    }).then(function () { btn.disabled = false; });
+  });
+})();
+</script>
+<script src="../policy.js"></script>
+</body>
+</html>
