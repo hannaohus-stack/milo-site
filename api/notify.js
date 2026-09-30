@@ -78,5 +78,5 @@ module.exports = async (req, res) => {
   }
 
   if (isNew) { try { await notifySlack(); } catch (err) { console.error('[notify] Slack 알림 실패', err); } }
-  return res.status(200).json({ ok: true });
+  return res.status(200).json({ ok: true, new: isNew }); // new: 처음 저장된 이메일일 때만 true (메타 픽셀 Lead 기준)
 };
